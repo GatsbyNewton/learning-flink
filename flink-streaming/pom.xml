@@ -17,6 +17,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jdk.version>1.8</jdk.version>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
@@ -31,7 +32,27 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>UserBehavior.csv</include>
+        </includes>
+      </resource>
+    </resources>
+
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
       <!--<plugin>-->
       <!--<groupId>org.scala-tools</groupId>-->
       <!--<artifactId>maven-scala-plugin</artifactId>-->
@@ -87,7 +108,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>edu.wzm.wordcount.SocketWindowWordCount</mainClass>
+                  <mainClass>edu.wzm.topk.HotItem</mainClass>
                 </transformer>
 
                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
