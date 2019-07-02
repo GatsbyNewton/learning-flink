@@ -58,7 +58,6 @@ public class SocketWindowWordCount {
 
     // Data type for words with count
     public static class WordWithCount {
-
         public String word;
         public long count;
 
