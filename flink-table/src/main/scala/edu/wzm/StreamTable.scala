@@ -32,6 +32,6 @@ object StreamTable{
 
         result.print()
 
-        env.execute()
+        env.execute("Stream Table")
     }
 }
