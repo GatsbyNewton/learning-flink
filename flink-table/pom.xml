@@ -1,28 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>learning-flink</artifactId>
     <groupId>edu.wzm</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
+
   <modelVersion>4.0.0</modelVersion>
-
-  <artifactId>flink-streaming</artifactId>
-
-  <name>flink-streaming</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <artifactId>flink-table</artifactId>
+  <inceptionYear>2008</inceptionYear>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jdk.version>1.8</jdk.version>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <scala.version>2.11</scala.version>
+    <flink.version>1.6.1</flink.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>scala-tools.org</id>
+      <name>Scala-Tools Maven2 Repository</name>
+      <url>http://scala-tools.org/repo-releases</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <dependencies>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>2.11.11</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -36,54 +51,50 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
         <configuration>
-          <source>${jdk.version}</source>
-          <target>${jdk.version}</target>
-          <encoding>UTF-8</encoding>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
 
-      <!--<plugin>-->
-      <!--<groupId>org.scala-tools</groupId>-->
-      <!--<artifactId>maven-scala-plugin</artifactId>-->
-      <!--<version>2.15.2</version>-->
-      <!--<executions>-->
-      <!--<execution>-->
-      <!--<id>compile</id>-->
-      <!--<goals>-->
-      <!--<goal>compile</goal>-->
-      <!--</goals>-->
-      <!--<phase>compile</phase>-->
-      <!--</execution>-->
-      <!--<execution>-->
-      <!--<id>test-compile</id>-->
-      <!--<goals>-->
-      <!--<goal>testCompile</goal>-->
-      <!--</goals>-->
-      <!--<phase>test-compile</phase>-->
-      <!--</execution>-->
-      <!--<execution>-->
-      <!--<phase>process-resources</phase>-->
-      <!--<goals>-->
-      <!--<goal>compile</goal>-->
-      <!--</goals>-->
-      <!--</execution>-->
-      <!--</executions>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.2</version>
+      </plugin>
 
-      <!--<plugin>-->
-      <!--<groupId>net.alchim31.maven</groupId>-->
-      <!--<artifactId>scala-maven-plugin</artifactId>-->
-      <!--<version>3.2.2</version>-->
-      <!--<executions>-->
-      <!--<execution>-->
-      <!--<goals>-->
-      <!--<goal>compile</goal>-->
-      <!--<goal>testCompile</goal>-->
-      <!--</goals>-->
-      <!--</execution>-->
-      <!--</executions>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>spark.demo.run.Service</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -98,7 +109,8 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>edu.wzm.topk.HotItem</mainClass>
+                  <!--<mainClass>edu.wzm.StreamSQLmSQL</mainClass>-->
+                  <mainClass>edu.wzm.join.Main</mainClass>
                 </transformer>
 
                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
@@ -211,5 +223,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
