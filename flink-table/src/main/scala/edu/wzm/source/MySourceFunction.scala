@@ -1,4 +1,4 @@
-package edu.wzm.join
+package edu.wzm.source
 
 import org.apache.flink.streaming.api.functions.source.SourceFunction
 import org.apache.flink.streaming.api.watermark.Watermark

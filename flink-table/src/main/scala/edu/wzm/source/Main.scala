@@ -1,14 +1,14 @@
-package edu.wzm.join
+package edu.wzm.source
 
 import java.io.File
 
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.table.api.scala._
 import org.apache.flink.table.api.{TableEnvironment, Types}
 import org.apache.flink.table.sinks.{CsvTableSink, TableSink}
 import org.apache.flink.types.Row
-import org.apache.flink.table.api.scala._
 
 object Main {
     def main(args: Array[String]): Unit = {
