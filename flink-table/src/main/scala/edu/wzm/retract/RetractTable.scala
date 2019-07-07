@@ -3,6 +3,7 @@ package edu.wzm.retract
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.table.api.TableEnvironment
 import org.apache.flink.table.api.scala._
+import org.apache.flink.api.scala._
 
 case class Order(productId: Long, amount: Int)
 
