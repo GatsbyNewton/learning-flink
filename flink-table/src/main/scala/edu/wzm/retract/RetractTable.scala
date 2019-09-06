@@ -1,7 +1,7 @@
 package edu.wzm.retract
 
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
-import org.apache.flink.table.api.TableEnvironment
+import org.apache.flink.table.api.{EnvironmentSettings, TableEnvironment}
 import org.apache.flink.table.api.scala._
 import org.apache.flink.api.scala._
 
@@ -15,7 +15,11 @@ object RetractTable {
 
     def main(args: Array[String]): Unit = {
         val env = StreamExecutionEnvironment.getExecutionEnvironment
-        val tEnv = TableEnvironment.getTableEnvironment(env)
+        val settings = EnvironmentSettings.newInstance()
+          .useBlinkPlanner()
+          .inStreamingMode()
+          .build()
+        val tEnv = StreamTableEnvironment.create(env, settings)
         env.setParallelism(1)
 
         val dataRetract: DataStream[Order] = env.fromCollection(Seq(

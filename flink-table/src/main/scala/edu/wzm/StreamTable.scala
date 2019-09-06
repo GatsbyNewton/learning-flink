@@ -2,7 +2,7 @@ package edu.wzm
 
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.table.api.TableEnvironment
+import org.apache.flink.table.api.EnvironmentSettings
 import org.apache.flink.table.api.scala._
 
 /**
@@ -13,7 +13,11 @@ case class Order(user: Long, product: String, amount: Int)
 object StreamTable{
     def main(args: Array[String]): Unit = {
         val env = StreamExecutionEnvironment.getExecutionEnvironment
-        val tEnv = TableEnvironment.getTableEnvironment(env)
+        val settings = EnvironmentSettings.newInstance()
+          .useBlinkPlanner()
+          .inStreamingMode()
+          .build()
+        val tEnv = StreamTableEnvironment.create(env, settings)
 
         val orderA = env.fromCollection(Seq(
             Order(1L, "beer", 3),

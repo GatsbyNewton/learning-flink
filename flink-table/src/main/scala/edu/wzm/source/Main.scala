@@ -6,14 +6,18 @@ import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.table.api.scala._
-import org.apache.flink.table.api.{TableEnvironment, Types}
+import org.apache.flink.table.api.{EnvironmentSettings, Tumble, Types}
 import org.apache.flink.table.sinks.{CsvTableSink, TableSink}
 import org.apache.flink.types.Row
 
 object Main {
     def main(args: Array[String]): Unit = {
         val env = StreamExecutionEnvironment.getExecutionEnvironment
-        val tEnv = TableEnvironment.getTableEnvironment(env)
+        val settings = EnvironmentSettings.newInstance()
+          .useBlinkPlanner()
+          .inStreamingMode()
+          .build()
+        val tEnv = StreamTableEnvironment.create(env, settings)
 
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
         env.setParallelism(1)
