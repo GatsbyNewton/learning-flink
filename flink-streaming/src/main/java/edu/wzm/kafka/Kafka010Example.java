@@ -63,7 +63,6 @@ public class Kafka010Example {
                 param.get("input-topic"),
                 new KafkaSchema(),
                 getConsumerProperties());
-
         // consume Kafka message from beginning
         kafkaSource.setStartFromEarliest();
 
