@@ -52,7 +52,7 @@
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-connector-kafka-0.10_${scala.version}</artifactId>
       <version>${flink.version}</version>
-      <scope>compile</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.flink</groupId>
@@ -79,6 +79,13 @@
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-table-api-java-bridge_${scala.version}</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+
+    <!--  -->
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-json</artifactId>
       <version>${flink.version}</version>
     </dependency>
 

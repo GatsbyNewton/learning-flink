@@ -110,7 +110,7 @@
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <!--<mainClass>edu.wzm.StreamSQLmSQL</mainClass>-->
-                  <mainClass>edu.wzm.join.Main</mainClass>
+                  <mainClass>edu.wzm.streaming.KafkaStreamingSQL</mainClass>
                 </transformer>
 
                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
