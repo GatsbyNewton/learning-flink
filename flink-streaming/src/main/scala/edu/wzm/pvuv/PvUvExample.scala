@@ -7,17 +7,25 @@ import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.source.SourceFunction
 import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows
+import org.apache.flink.streaming.api.windowing.assigners.{TumblingEventTimeWindows, TumblingProcessingTimeWindows}
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.triggers.CountTrigger
-
-import java.util.{Set => JSet, HashSet => JHashSet}
+import java.util.{HashSet => JHashSet, Set => JSet}
 
 /**
   * @author: Jimmy Wong
   * @Date: 2019-12-26
   * @version: 1.0
   * @Description: Example of PV and UV
+  *               Test Data:
+  *               111 one  1577259310000
+  *               111 two  1577259313000
+  *               111 one  1577259312000
+  *               222 two  1577259314000
+  *               one 111 1577259320000
+  *               two 222 1577259323000
+  *               one 111 1577259322000
+  *               two 111 1577259323000
   */
 case class Event(date: String,
                  eventId: String,
@@ -43,8 +51,6 @@ object Driver {
     def main(args: Array[String]): Unit = {
         val params = ParameterTool.fromArgs(args)
         val env = StreamExecutionEnvironment.getExecutionEnvironment
-        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
-        env.setParallelism(1)
 
         val stream = env.socketTextStream("localhost", 9999)
 
@@ -58,9 +64,10 @@ object Driver {
               Event(info(0), info(1), info(2).toLong)
           })
           .keyBy("date")
-          .window(TumblingEventTimeWindows.of(Time.seconds(10)))
+          .window(TumblingProcessingTimeWindows.of(Time.seconds(10)))
           .trigger(CountTrigger.of(1))
           .aggregate(new PvUvAggregator)
+          .map(acc => PvUv(acc.date, acc.pv, acc.uv))
           .print()
 
         env.execute("PVUV")

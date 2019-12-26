@@ -21,6 +21,15 @@ import java.util.Set;
  * @Date: 2019-12-26
  * @version: 1.0
  * @Description: Example of PV and UV
+ *               Test Data:
+ *               111 one  1577259310000
+ *               111 two  1577259313000
+ *               111 one  1577259312000
+ *               222 two  1577259314000
+ *               one 111 1577259320000
+ *               two 222 1577259323000
+ *               one 111 1577259322000
+ *               two 111 1577259323000
  */
 public class PvUvExample {
 
