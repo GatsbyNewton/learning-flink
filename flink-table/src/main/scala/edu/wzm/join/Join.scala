@@ -61,6 +61,7 @@ object Join {
 
         tEnv.registerDataStream("user", userDS, 'id, 'name, 'ts)
 
+        /** Event-time: specify User's ts as rowtime of Group Window */
         val user = userDS.toTable(tEnv, 'id, 'name, 'ts.rowtime)
         val result = user.window(Tumble over 10.seconds on 'ts as 'win)
             .groupBy('win, 'id)
@@ -69,6 +70,6 @@ object Join {
         result.toAppendStream[Row].print()
 //        user.window(Over partitionBy 'w orderBy 'a preceding UNBOUNDED_RANGE as 'b)
 
-        env.execute("Table Window")
+        env.execute("Group/Over Windows")
     }
 }
