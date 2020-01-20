@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * @author: wangzhiming
+ * @author: Jimmy Wong
  * @Date: 2020/1/12
  * @version: 1.0
  * @Description: This example shows how to implement INNER JOIN with JoinFunction

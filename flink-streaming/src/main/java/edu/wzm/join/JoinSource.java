@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrderness
 import org.apache.flink.streaming.api.windowing.time.Time;
 
 /**
- * @author: wangzhiming
+ * @author: Jimmy Wong
  * @Date: 2020/1/12
  * @version:
  * @Description:
