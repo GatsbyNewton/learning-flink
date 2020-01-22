@@ -20,8 +20,10 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author: Jimmy Wong
  * @Date: 2020/1/20
- * @version:
- * @Description:
+ * @version: 1.0
+ * @Description: Dynamic Table join Dimension Table
+ *
+ * <p> Example of stream table join MySQL static table.
  */
 public class DimensionTable {
     private static final Logger LOGGER = LogManager.getLogger(DimensionTable.class);
