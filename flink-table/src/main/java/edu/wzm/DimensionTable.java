@@ -24,6 +24,12 @@ import org.apache.logging.log4j.Logger;
  * @Description: Dynamic Table join Dimension Table
  *
  * <p> Example of stream table join MySQL static table.
+ *     MySQL table:
+ *          CREATE TABLE user (
+ *            user_id int(11) NOT NULL DEFAULT 0 AUTO_INCREMENT,
+ *            username varchar(16) DEFAULT NULL,
+ *            PRIMARY KEY (user_id)
+ *          )
  */
 public class DimensionTable {
     private static final Logger LOGGER = LogManager.getLogger(DimensionTable.class);
