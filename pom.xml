@@ -10,9 +10,9 @@
   <version>1.0-SNAPSHOT</version>
 
   <modules>
-    <module>flink-batch</module>
     <module>flink-streaming</module>
     <module>flink-table</module>
+    <module>flink1_9</module>
   </modules>
 
   <name>flink-exmaple</name>
