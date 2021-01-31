@@ -26,7 +26,7 @@
         <flink.version>1.9.0</flink.version>
         <scala.version>2.11</scala.version>
         <lombok.version>1.18.8</lombok.version>
-        <log4j2.version>2.12.0</log4j2.version>
+        <log4j2.version>2.13.2</log4j2.version>
         <joda.version>2.10.5</joda.version>
         <mysql.version>8.0.18</mysql.version>
     </properties>
