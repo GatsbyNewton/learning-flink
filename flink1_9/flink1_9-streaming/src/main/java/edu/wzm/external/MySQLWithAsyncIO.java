@@ -1,6 +1,5 @@
 package edu.wzm.external;
 
-import edu.wzm.kafka.Event;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,7 +35,7 @@ import java.util.concurrent.TimeUnit;
  * <p> Example of accessing MySQL with Async IO
  *     MySQL table:
  *          CREATE TABLE user (
- *            user_id int(11) NOT NULL DEFAULT 0 AUTO_INCREMENT,
+ *            user_id int(11) NOT NULL AUTO_INCREMENT,
  *            username varchar(16) DEFAULT NULL,
  *            PRIMARY KEY (user_id)
  *          )
@@ -45,7 +47,7 @@ public class MySQLWithAsyncIO {
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/test";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "12345678";
+    private static final String DB_PASSWORD = "123456";
 
     public static void main(String... args) {
         final ParameterTool params = ParameterTool.fromArgs(args);
@@ -63,10 +65,14 @@ public class MySQLWithAsyncIO {
         Properties props = new Properties();
         props.setProperty("bootstrap.servers", "localhost:9092");
         props.setProperty("group.id", "test");
-        FlinkKafkaConsumer010<Order> kafka = new FlinkKafkaConsumer010<>(topic, new KafkaSchema(), props);
+//        FlinkKafkaConsumer010<Order> kafka = new FlinkKafkaConsumer010<>(topic, new KafkaSchema(), props);
+//
+//        DataStream<Order> orderDS = env.addSource(kafka.assignTimestampsAndWatermarks(new CustomWatermarkExtractor()))
+//                .keyBy("userId");
 
-        DataStream<Order> orderDS = env.addSource(kafka.assignTimestampsAndWatermarks(new CustomWatermarkExtractor()))
-                .keyBy("userId");
+        DataStream<String> text = env.socketTextStream("localhost",
+                Integer.parseInt(topic), "\n");
+        DataStream<Order> orderDS = text.map(s -> Order.of(s));
 
         DataStream<Detail> result = connectExternalSys(orderDS);
 
