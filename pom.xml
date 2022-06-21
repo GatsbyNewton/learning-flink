@@ -27,7 +27,7 @@
     <lombok.version>1.18.8</lombok.version>
     <log4j2.version>2.12.0</log4j2.version>
     <joda.version>2.10.5</joda.version>
-    <mysql.version>8.0.18</mysql.version>
+    <mysql.version>8.0.28</mysql.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
